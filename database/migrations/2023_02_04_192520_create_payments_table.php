@@ -18,6 +18,7 @@ return new class extends Migration
             $table->double('total');
             $table->foreignId('order_id');
             $table->foreignId('user_id');
+            $table->string('transaction_id');
             $table->timestamps();
         });
     }
