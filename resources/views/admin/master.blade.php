@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>@yield('title' , config('app.name'))</title>
+    <title>@yield('title', config('app.name'))</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('adminassets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -21,6 +21,48 @@
     <link href="{{ asset('adminassets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     @yield('styles')
+    @if (app()->currentLocale() == 'ar')
+        <style>
+            body {
+                direction: rtl;
+                text-align: right;
+            }
+
+            .sidebar {
+                padding: 0;
+            }
+
+            .sidebar-dark .nav-item .nav-link {
+                text-align: right;
+            }
+
+            .sidebar .nav-item .nav-link[data-toggle=collapse]::after {
+                float: left;
+                transform: rotate(0);
+            }
+
+            .sidebar .nav-item .nav-link[data-toggle=collapse].collapsed::after {
+                float: left;
+                transform: rotate(180deg);
+            }
+
+            .dropdown-item {
+                text-align: right;
+            }
+
+            .ml-auto,
+            .mx-auto {
+                margin-right: auto !important;
+                margin-left: 0 !important;
+            }
+        </style>
+    @endif
+    <style>
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -56,12 +98,13 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse {{ str_contains(request()->url(), 'Categories') ? 'show' : '' }}" data-target="#collapseCategories"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories"
                     aria-expanded="true" aria-controls="collapseCategories">
                     <i class="fas fa-fw fa-tags"></i>
                     <span>{{ __('site.categories') }}</span>
                 </a>
-                <div id="collapseCategories" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseCategories" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="buttons.html">All categories</a>
                         <a class="collapse-item" href="cards.html">Add new </a>
@@ -73,12 +116,13 @@
             <!-- Divider -->
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse {{ str_contains(request()->url(), 'Products') ? 'show' : '' }}" data-target="#collapseProducts"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
                     aria-expanded="true" aria-controls="collapseProducts">
                     <i class="fas fa-fw fa-heart"></i>
                     <span>{{ __('site.products') }}</span>
                 </a>
-                <div id="collapseProducts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseProducts" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="buttons.html">All Products</a>
                         <a class="collapse-item" href="cards.html">Add new </a>
@@ -141,7 +185,26 @@
                     </button>
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-language mx-2"></i>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">language
+                                    ({{ app()->currentLocale() }})</span>
 
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
+                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        {{-- <img src="{{ asset('adminassets/'.$properties['flag']) }}" alt=""> --}}
+                                        {{ $properties['native'] }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </li>
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -237,7 +300,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                   @yield('content')
+                    @yield('content')
 
                 </div>
                 <!-- /.container-fluid -->
