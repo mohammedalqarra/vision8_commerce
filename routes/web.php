@@ -31,7 +31,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
 
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
