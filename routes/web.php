@@ -33,6 +33,6 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::view('no-access' , 'no_access');
