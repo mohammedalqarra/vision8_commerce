@@ -285,7 +285,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                 <a class="dropdown-item" href="#" data-toggle="modal"
+                                <a class="dropdown-item" href="#" data-toggle="modal"
                                     data-target="#logoutModal">
 
                                     Logout
