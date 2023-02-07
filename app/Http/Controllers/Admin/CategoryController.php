@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 
-class CategoryController extends Controller
+class categoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,17 +17,13 @@ class CategoryController extends Controller
     public function index()
     {
         //
-
-
-            if(request()->has('category')){
-
-                $categories = Category::where('name', 'like', '%' . request()->category . '%')->orderBy('id', 'desc')->paginate(10);
-            }else{
-
-                $categories = Category::where('name', 'like', '%' . request()->category . '%')->with('parent')->orderByDesc('id')->paginate(10);
-            }
-
-            return view('admin.categories.index' , compact('categories'));
+        if (request()->has('category')) {
+            $categories = Category::where('name', 'like', '%' . request()->category . '%')->orderBy('id', 'desc')->paginate(10);
+        } else {
+            $categories = Category::where('name', 'like', '%' . request()->q . '%')->with('parent')->orderByDesc('id')->paginate(10);
+        }
+        // $categories = Category::with('parent')->orderByDesc('id')->paginate(5);
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -39,10 +35,8 @@ class CategoryController extends Controller
     {
         //
         $categories = Category::all();
-
-        return view('admin.categories.create' , compact('categories'));
-
-        return redirect()->route('admin.categories.index')->with('msg', 'Category deleted successfully')->with('type', 'success');
+        return view('admin.categories.create', compact('categories'));
+        // return redirect()->route('admin.categories.index')->with('msg', 'Category deleted successfully')->with('type', 'success');
     }
 
     /**
@@ -53,38 +47,43 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-            //validate Data
+        //validate Data
 
-            $request->validate([
-                'name_en' => 'required',
-                'name_ar' => 'required',
-                'image'   => 'required',
-                'parent_id' => 'nullable|exists:categories,id', // null or Values
-            ]);
-         // convert name to json
+        $request->validate([
+            'name_en' => 'required',
+            'name_ar' => 'required',
+            'image'   => 'required',
+            'parent_id' => 'nullable|exists:categories,id', // null or Values
+        ]);
+        // uploads file
 
-            $name = json_encode([
+        // $img = $request->file('image');
+        // $img_name = $img->getClientOriginalName();
+        // $img->move(public_path('uploads/categories'), $img_name);
+
+        $img_name = $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('uploads/categories'), $img_name);
+
+
+        // convert name to json
+
+        $name = json_encode([
             'en' => $request->name_en,
             'ar' => $request->name_ar,
-            ], JSON_UNESCAPED_UNICODE);
+        ], JSON_UNESCAPED_UNICODE);
 
-            // uploads file
+        // Insert To DataBase
 
-            $img_name = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('uploads/categories'), $img_name);
+        Category::create([
+            'name' => $name,
+            // 'name' => $request->name_en . ' ' . $request->name_ar,
+            'image' =>  $img_name,
+            'parent_id' => $request->parent_id,
+        ]);
 
-            // Insert To DataBase
+        //Redirect
 
-            Category::create([
-                 'name' => $name,
-                //'name' => $request->name_en . ' ' . $request->name_ar,
-                'image' =>  $img_name,
-                'parent_id' => $request->parent_id,
-            ]);
-
-            //Redirect
-
-            return redirect()->route('admin.categories.index')->with('msg', 'Category create successfully')->with('type', 'success');
+        return redirect()->route('admin.categories.index')->with('msg', 'Category create successfully')->with('type', 'success');
     }
 
     /**
@@ -96,6 +95,10 @@ class CategoryController extends Controller
     public function show($id)
     {
         //
+        // $categories = Category::all();
+        // return view('admin.categories.show', compact('categories'));
+
+
     }
 
     /**
@@ -106,11 +109,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
 
         $categories = Category::all();
         $category = Category::findOrFail($id);
-        return view('admin.categories.edit' , compact('categories' , 'category'));
+        return view('admin.categories.edit', compact('categories', 'category'));
     }
 
     /**
@@ -122,40 +124,46 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // validate Data
+        //validate Data
+
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
             'parent_id' => 'nullable|exists:categories,id', // null or Values
         ]);
-
         // uploads file
+
+        // $img = $request->file('image');
+        // $img_name = $img->getClientOriginalName();
+        // $img->move(public_path('uploads/categories'), $img_name);
         $category = Category::findOrFail($id);
 
         $img_name = $category->image;
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $img_name = $request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('uploads/categories'), $img_name);
         }
-         // convert name to json
 
-            $name = json_encode([
+        // convert name to json
+
+        $name = json_encode([
             'en' => $request->name_en,
             'ar' => $request->name_ar,
-            ], JSON_UNESCAPED_UNICODE);
+        ], JSON_UNESCAPED_UNICODE);
 
+        // Insert To DataBase
 
         $category->update([
-                'name' => $name,
-               // 'name' => $request->name_en . ' ' . $request->name_ar,
-                'image' =>  $img_name,
-                'parent_id' => $request->parent_id,
-            ]);
+            // 'name' => $request->name_en . ' ' . $request->name_ar,
+            'name' => $name,
+            'image' =>  $img_name,
+            'parent_id' => $request->parent_id,
+        ]);
 
-            //Redirect
+        //Redirect
 
-            return redirect()->route('admin.categories.index')->with('msg', 'Category update successfully')->with('type', 'info');
+        return redirect()->route('admin.categories.index')->with('msg', 'Category create successfully')->with('type', 'info');
     }
 
     /**
@@ -166,13 +174,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        //    Category::destroy($id);
         $category = Category::findOrFail($id);
         File::delete(public_path('uploads/categories/' . $category->image));
         //  Category::where('parent_id', $category->id)->update(['parent_id' => null]);
         $category->children()->update(['parent_id' => null]);
         $category->delete();
+        //   return redirect()->route('admin.categories.index')->with('fail', 'Category deleted successfully');
         return redirect()->route('admin.categories.index')->with('msg', 'Category delete successfully')->with('type', 'danger');
-
     }
 }

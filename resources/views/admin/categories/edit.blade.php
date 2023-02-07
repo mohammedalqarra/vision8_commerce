@@ -22,7 +22,6 @@
     <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('put')
-
         <div class="mb-3">
             <label>English name</label>
             <input type="text" name="name_en" placeholder="English name" class="form-control"
@@ -48,7 +47,7 @@
                     {{-- <option {{ $category->parent_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">
                         {{ $item->name }}</option> --}}
                     <option {{ $category->parent_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">
-                        {{ $item->name }}</option>
+                        {{ $item->trans_name }}</option>
                 @endforeach
             </select>
         </div>

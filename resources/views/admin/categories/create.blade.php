@@ -26,6 +26,10 @@
         <div class="mb-3">
             <label for="image">Image</label>
             <input type="file" id="image" name="image" class="form-control" />
+
+            {{-- <label for="image"><img src="https://placekitten.com/120" alt=""></label>
+            <input type="file" id="image" name="name_en" class="form-control d-none" />
+             --}}
         </div>
         <div class="mb-3">
             <label>Parent</label>
@@ -33,7 +37,7 @@
                 <option value="">Select</option>
                 @foreach ($categories as $Category)
                     {{-- <option value="{{ $Category->id }}">{{ $Category->name }}</option> --}}
-                    <option value="{{ $Category->id }}">{{ $Category->name }}</option>
+                    <option value="{{ $Category->id }}">{{ $Category->trans_name }}</option>
                 @endforeach
             </select>
         </div>
