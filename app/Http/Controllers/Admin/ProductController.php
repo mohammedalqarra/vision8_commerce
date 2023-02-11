@@ -7,6 +7,7 @@ use App\Models\product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -150,5 +151,16 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+
+        $product = Product::findOrFail($id);
+
+        File::delete(public_path('uploads/products/' . $product->image));
+
+        $product->album()->delete();
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('msg', 'products delete successfully')->with('type', 'danger');
+
+
     }
 }
