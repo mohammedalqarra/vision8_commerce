@@ -222,4 +222,10 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')->with('msg', 'products delete successfully')->with('type', 'danger');
     }
+
+    public function delete_image($id)
+    {
+        Image::destroy($id);
+        return redirect()->back();
+    }
 }

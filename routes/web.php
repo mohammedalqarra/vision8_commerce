@@ -31,6 +31,8 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
         Route::resource('categories', CategoryController::class);
 
         Route::resource('products' , ProductController::class);
+
+        Route::get('delete-image/{id}', [ProductController::class , 'delete_image'])->name('products.delete_image');
     });
 
 });
