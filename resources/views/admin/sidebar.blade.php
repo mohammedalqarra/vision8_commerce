@@ -51,11 +51,11 @@
                     <i class="fas fa-fw fa-heart"></i>
                     <span>{{ __('site.products') }}</span>
                 </a>
-                <div id="collapseProducts" class="collapse" aria-labelledby="headingTwo"
+                <div id="collapseProducts" class="collapse {{ str_contains(request()->url(), 'products') ? 'show' : '' }}" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">All Products</a>
-                        <a class="collapse-item" href="cards.html">Add new </a>
+                        <a class="collapse-item {{ request()->routeIs('admin.products.index') ? 'active' : '' }}" href="{{ route('admin.products.index') }}">All Products</a>
+                        <a class="collapse-item {{ request()->routeIs('admin.products.create') ? 'active' : '' }}" href="{{ route('admin.products.create') }}">Add new </a>
                     </div>
                 </div>
             </li>
