@@ -150,7 +150,7 @@ class ProductController extends Controller
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
-            'image' => 'required',
+            'image' => 'nullable',
             'content_en' => 'required',
             'content_ar' => 'required',
             'price' => 'required',
