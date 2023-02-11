@@ -6,13 +6,13 @@
                 value="{{ $product->name_en }}" />
         </div>
     </div>
-    <diuv class="col-md-6">
+    <div class="col-md-6">
         <div class="mb-3">
             <label>Arabic name</label>
             <input type="text" name="name_ar" placeholder="Arabic name" class="form-control"
                 value="{{ $product->name_ar }}" />
         </div>
-    </diuv>
+    </div>
 </div>
 <div class="mb-3">
     <label for="image">Image</label>
@@ -25,8 +25,8 @@
     <label>Album</label>
     <input type="file" name="album[]" multiple class="form-control" />
     @foreach ($product->album as $img)
-        <a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this' )"
-            href="{{ route('admin.products.delete_image', $img->id) }}"><i class="fa fa-trash"></i></a>
+        {{-- <a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this' )"
+            href="{{ route('admin.products.delete_image', $img->id) }}"><i class="fa fa-trash"></i></a> --}}
         <img width="60" src="{{ asset('uploads/products/' . $img->path) }}">
     @endforeach
 </div>
