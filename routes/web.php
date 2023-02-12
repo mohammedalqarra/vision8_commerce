@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\SiteController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -53,6 +54,4 @@ Route::view('no-access' , 'no_access');
 
 // site Route
 
-Route::get('/' ,function (){
-    return 'home';
-})->name('site.index');
+Route::get('/' , [SiteController::class , 'index' ])->name('site.index');
