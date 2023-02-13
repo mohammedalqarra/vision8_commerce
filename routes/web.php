@@ -42,16 +42,20 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
 
     });
 
+    Auth::routes(['verify' => true]);
+
+    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::view('no-access' , 'no_access');
+
+    // site Route
+
+    Route::get('/' , [SiteController::class , 'index' ])->name('site.index');
+    Route::get('/about' , [SiteController::class , 'about' ])->name('site.about');
+    Route::get('/shop' , [SiteController::class , 'shop' ])->name('site.shop');
+    Route::get('/contact' , [SiteController::class , 'contact' ])->name('site.contact');
+
+
 });
 
 
-
-Auth::routes(['verify' => true]);
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::view('no-access' , 'no_access');
-
-// site Route
-
-Route::get('/' , [SiteController::class , 'index' ])->name('site.index');
