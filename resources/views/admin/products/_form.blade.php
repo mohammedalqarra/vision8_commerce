@@ -65,10 +65,10 @@
     <label>Category</label>
     <select name="category_id" class="form-control">
         <option value="">Select</option>
-        @foreach ($categories as $item)
+        @foreach ($categories  as $item)
             {{-- <option value="{{ $Category->id }}">{{ $Category->name }}</option> --}}
             <option @selected($product->category_id == $item->id) value="{{ $item->id }}">{{ $item->trans_name }}</option>
-        @endforeach
+            @endforeach
     </select>
 </div>
 
