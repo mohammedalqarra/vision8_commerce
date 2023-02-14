@@ -34,32 +34,38 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="category-box">
-                        <a href="">
-                            <img src="{{ asset('uploads/categories/' . $categories[0]->image ) }}" alt="" />
-                            <div class="content">
-                                <h3>{{ $categories[0]->trans_name }}</h3>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="category-box">
-                        <a href="#!">
-                            <img src="{{ asset('uploads/categories/' . $categories[1]->image ) }}" alt="" />
-                            <div class="content">
-                                <h3>{{ $categories[1]->trans_name }}</h3>
-                            </div>
-                        </a>
-                    </div>
+                    @isset($categories[0])
+                        <div class="category-box">
+                            <a href="{{ route('site.category' , $categories[0]->id ) }}">
+                                <img src="{{ asset('uploads/categories/' . $categories[0]->image) }}" alt="" />
+                                <div class="content">
+                                    <h3>{{ $categories[0]->trans_name }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                    @endisset
+                    @isset($categories[1])
+                        <div class="category-box">
+                            <a href="{{ route('site.category' , $categories[1]->id ) }}">
+                                <img src="{{ asset('uploads/categories/' . $categories[1]->image) }}" alt="" />
+                                <div class="content">
+                                    <h3>{{ $categories[1]->trans_name }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                    @endisset
                 </div>
                 <div class="col-md-6">
-                    <div class="category-box category-box-2">
-                        <a href="#!">
-                            <img src="{{ asset('uploads/categories/' . $categories[2]->image ) }}" alt="" />
-                            <div class="content">
-                                <h3>{{ $categories[2]->trans_name }}</h3>
-                            </div>
-                        </a>
-                    </div>
+                    @isset($categories[2])
+                        <div class="category-box category-box-2">
+                            <a href="{{ route('site.category' , $categories[2]->id) }}">
+                                <img src="{{ asset('uploads/categories/' . $categories[2]->image) }}" alt="" />
+                                <div class="content">
+                                    <h3>{{ $categories[2]->trans_name }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                    @endisset
                 </div>
             </div>
         </div>
@@ -73,252 +79,11 @@
                 </div>
             </div>
             <div class="row">
-
+                @foreach ($products_latest as $product)
                 <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="product-thumb">
-                            <span class="bage">Sale</span>
-                            <img class="img-responsive" src="{{ asset('siteassets/images/shop/products/product-1.jpg') }}"
-                                alt="product-img" />
-                            <div class="preview-meta">
-                                <ul>
-                                    <li>
-                                        <span data-toggle="modal" data-target="#product-modal">
-                                            <i class="tf-ion-ios-search-strong"></i>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-ios-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h4><a href="product-single.html">Reef Boardsport</a></h4>
-                            <p class="price">$200</p>
-                        </div>
-                    </div>
+                    @include('includes.product')
                 </div>
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="product-thumb">
-                            <img class="img-responsive" src="{{ asset('siteassets/images/shop/products/product-2.jpg') }}"
-                                alt="product-img" />
-                            <div class="preview-meta">
-                                <ul>
-                                    <li>
-                                        <span data-toggle="modal" data-target="#product-modal">
-                                            <i class="tf-ion-ios-search-strong"></i>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h4><a href="product-single.html">Rainbow Shoes</a></h4>
-                            <p class="price">$200</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="product-thumb">
-                            <img class="img-responsive" src="{{ asset('siteassets/images/shop/products/product-3.jpg') }}"
-                                alt="product-img" />
-                            <div class="preview-meta">
-                                <ul>
-                                    <li>
-                                        <span data-toggle="modal" data-target="#product-modal">
-                                            <i class="tf-ion-ios-search-strong"></i>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h4><a href="product-single.html">Strayhorn SP</a></h4>
-                            <p class="price">$230</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="product-thumb">
-                            <img class="img-responsive" src="{{ asset('siteassets/images/shop/products/product-4.jpg') }}"
-                                alt="product-img" />
-                            <div class="preview-meta">
-                                <ul>
-                                    <li>
-                                        <span data-toggle="modal" data-target="#product-modal">
-                                            <i class="tf-ion-ios-search-strong"></i>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h4><a href="product-single.html">Bradley Mid</a></h4>
-                            <p class="price">$200</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="product-thumb">
-                            <img class="img-responsive" src="{{ asset('siteassets/images/shop/products/product-5.jpg') }}"
-                                alt="product-img" />
-                            <div class="preview-meta">
-                                <ul>
-                                    <li>
-                                        <span data-toggle="modal" data-target="#product-modal">
-                                            <i class="tf-ion-ios-search-strong"></i>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h4><a href="product-single.html">Rainbow Shoes</a></h4>
-                            <p class="price">$200</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="product-thumb">
-                            <img class="img-responsive"
-                                src="{{ asset('siteassets/images/shop/products/product-6.jpg') }}" alt="product-img" />
-                            <div class="preview-meta">
-                                <ul>
-                                    <li>
-                                        <span data-toggle="modal" data-target="#product-modal">
-                                            <i class="tf-ion-ios-search-strong"></i>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h4><a href="product-single.html">Rainbow Shoes</a></h4>
-                            <p class="price">$200</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="product-thumb">
-                            <span class="bage">Sale</span>
-                            <img class="img-responsive"
-                                src="{{ asset('siteassets/images/shop/products/product-7.jpg') }}" alt="product-img" />
-                            <div class="preview-meta">
-                                <ul>
-                                    <li>
-                                        <span data-toggle="modal" data-target="#product-modal">
-                                            <i class="tf-ion-ios-search-strong"></i>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h4><a href="product-single.html">Rainbow Shoes</a></h4>
-                            <p class="price">$200</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="product-thumb">
-                            <img class="img-responsive"
-                                src="{{ asset('siteassets/images/shop/products/product-8.jpg') }}" alt="product-img" />
-                            <div class="preview-meta">
-                                <ul>
-                                    <li>
-                                        <span data-toggle="modal" data-target="#product-modal">
-                                            <i class="tf-ion-ios-search-strong"></i>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h4><a href="product-single.html">Rainbow Shoes</a></h4>
-                            <p class="price">$200</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="product-thumb">
-                            <img class="img-responsive"
-                                src="{{ asset('siteassets/images/shop/products/product-9.jpg') }}" alt="product-img" />
-                            <div class="preview-meta">
-                                <ul>
-                                    <li>
-                                        <span data-toggle="modal" data-target="#product-modal">
-                                            <i class="tf-ion-ios-search-strong"></i>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h4><a href="product-single.html">Rainbow Shoes</a></h4>
-                            <p class="price">$200</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
 
                 <!-- Modal -->
                 <div class="modal product-modal fade" id="product-modal">
@@ -361,8 +126,8 @@
 
 
     <!--
-      Start Call To Action
-      ==================================== -->
+          Start Call To Action
+          ==================================== -->
     <section class="call-to-action bg-gray section">
         <div class="container">
             <div class="row">

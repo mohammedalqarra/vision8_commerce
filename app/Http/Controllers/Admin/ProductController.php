@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Image;
 use App\Models\product;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -83,6 +84,7 @@ class ProductController extends Controller
 
         $product = Product::create([
             'name' => $name,
+            'slug' => Str::slug($request->name_en),
             'image' => $img_name,
             'content' => $content,
             'price' => $request->price,

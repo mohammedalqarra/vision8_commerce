@@ -16,7 +16,9 @@ class SiteController extends Controller
 
         $categories  = Category::orderBy('id' , 'desc')->take(3)->get();
 
-        return view('site.index' , compact('categories' , 'products_slider'));
+        $products_latest = Product::orderBy('id' , 'desc')->take(9)->offset(3)->get();
+
+        return view('site.index' , compact('categories' , 'products_slider' , 'products_latest'));
     }
 
     public function about()
@@ -31,7 +33,7 @@ class SiteController extends Controller
 
     public function category($id)
     {
-        return view('site.index');
+        return view('site.category');
     }
 
     public function contact()
