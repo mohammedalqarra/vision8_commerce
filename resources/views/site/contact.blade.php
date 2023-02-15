@@ -27,7 +27,14 @@
 					<form id="contact-form" method="post" action="" role="form">
 
 						<div class="form-group">
-							<input type="text" placeholder="Your Name" class="form-control" name="name" id="name">
+							<input type="text" placeholder="Your Name" class="form-control @error('name')
+                            is-invalid
+                        @enderror"
+                            name="name" value="{{ old('name') }}">
+
+                            @error('name')
+                            <small class="invalid-feedback">{{ $message }}</small>
+                            @enderror
 						</div>
 
 						<div class="form-group">
