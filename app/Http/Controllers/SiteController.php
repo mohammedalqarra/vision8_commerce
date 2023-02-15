@@ -45,10 +45,10 @@ class SiteController extends Controller
         return view('site.shop' , compact('products' , 'category'));
     }
 
-    // public function contact()
-    // {
-    //     return view('site.contact');
-    // }
+    public function contact()
+    {
+        return view('site.contact');
+    }
 
 
 
