@@ -81,7 +81,7 @@
             <div class="row">
                 @foreach ($products_latest as $product)
                 <div class="col-md-4">
-                    @include('includes.product')
+                    @include('site.includes.product')
                 </div>
                 @endforeach
 

@@ -23,31 +23,32 @@ class SiteController extends Controller
 
     public function about()
     {
+
         return view('site.about');
     }
 
     public function shop()
     {
-        $products = Product::orderByDesc('id')->paginate(3);
+        $products = Product::orderBy('id' , 'Desc')->paginate(6);
 
         return view('site.shop' , compact('products'));
     }
 
-    public function category($id)
-    {
+    // public function category($id)
+    // {
 
-        $category = Category::FindOrFail($id);
+    //     $category = Category::FindOrFail($id);
 
-        $products = $category->product()->orderByDesc('id')->paginate(3);
+    //     $products = $category->product()->orderByDesc('id')->paginate(3);
 
-        return view('site.category' , compact('products' , 'category'));
-    }
+    //     return view('site.category' , compact('products' , 'category'));
+    // }
 
-    public function contact()
-    {
-        return view('site.contact');
-    }
+    // public function contact()
+    // {
+    //     return view('site.contact');
+    // }
 
-    
+
 
 }

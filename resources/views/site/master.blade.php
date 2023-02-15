@@ -256,10 +256,10 @@
                     </ul>
                     <ul class="footer-menu text-uppercase">
                         <li>
-                            <a href="contact.html">CONTACT</a>
+                            <a href="{{ route('site.contact') }}">CONTACT</a>
                         </li>
                         <li>
-                            <a href="shop.html">SHOP</a>
+                            <a href="{{ route('site.shop') }}">SHOP</a>
                         </li>
                         <li>
                             <a href="pricing.html">Pricing</a>
@@ -304,7 +304,7 @@
 
     <!-- Main Js File -->
     <script src="{{ asset('siteassets/js/script.js') }}"></script>
-    {{ asset('siteassets/') }}
+    {{-- {{ asset('siteassets/') }} --}}
     @yield('scripts')
 </body>
 
