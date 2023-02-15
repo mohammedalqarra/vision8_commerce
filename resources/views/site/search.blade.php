@@ -9,20 +9,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="content">
-					<h1 class="page-name">
-                        {{-- @if (isset($category))
-                        {{ $category->trans_name }}
-                        @else
-                        shop
-                        @endif --}}
-                        {{ isset($category) ? $category->trans_name : 'shop'}}
-                    </h1>
-					<ol class="breadcrumb">
-						<li><a href="{{ route('site.index') }}">Home</a></li>
-						<li class="active">{{ isset($category) ? $category->trans_name : 'shop'}}</li>
-					</ol>
-				</div>
+                <form action="{{ route('site.search') }}" method="GET"><input type="search" class="form-control"
+                    placeholder="Search..." name="search" value="{{ request()->search }}">
+            </form>
 			</div>
 		</div>
 	</div>
