@@ -12,11 +12,11 @@ class SiteController extends Controller
     //
     public function index()
     {
-        $products_slider = Product::orderBy('id' , 'desc')->take(3)->get();
+        $products_slider =  product::orderByDesc('id')->take(3)->get();
 
-        $categories  = Category::orderBy('id' , 'desc')->take(3)->get();
+        $categories =  Category::orderByDesc('id')->take(3)->get();
 
-        $products_latest = Product::orderBy('id' , 'desc')->take(9)->offset(3)->get();
+        $products_latest =  product::orderByDesc('id')->take(9)->offset(3)->get();
 
         return view('site.index' , compact('categories' , 'products_slider' , 'products_latest'));
     }
@@ -28,12 +28,19 @@ class SiteController extends Controller
 
     public function shop()
     {
-        return view('site.shop');
+        $products = Product::orderByDesc('id')->paginate(3);
+
+        return view('site.shop' , compact('products'));
     }
 
     public function category($id)
     {
-        return view('site.category');
+
+        $category = Category::FindOrFail($id);
+
+        $products = $category->product()->orderByDesc('id')->paginate(3);
+
+        return view('site.category' , compact('products' , 'category'));
     }
 
     public function contact()
@@ -41,6 +48,6 @@ class SiteController extends Controller
         return view('site.contact');
     }
 
-
+    
 
 }

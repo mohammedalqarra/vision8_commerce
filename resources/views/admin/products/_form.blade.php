@@ -25,8 +25,8 @@
     <label>Album</label>
     <input type="file" name="album[]" multiple class="form-control" />
     @foreach ($product->album as $img)
-        <a class="btn btn-sm btn-danger" href="{{ route('admin.products.delete_image', $img->id) }}"><i
-                class="fa fa-trash"></i></a>
+        <a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this' )"
+            href="{{ route('admin.products.delete_image', $img->id) }}"><i class="fa fa-trash"></i></a>
         <img width="60" src="{{ asset('uploads/products/' . $img->path) }}">
     @endforeach
 </div>
@@ -36,7 +36,7 @@
 </div>
 <div class="mb-3">
     <label>Arabic content</label>
-    <textarea name="content_ar" placeholder="English content" class="myeditor" rows="10"> {{ $product->content_ar }} </textarea>
+    <textarea name="content_ar" placeholder="Arabic content" class="myeditor" rows="10"> {{ $product->content_ar }} </textarea>
 </div>
 <div class="row">
     <div class="col-md-4">
@@ -65,10 +65,10 @@
     <label>Category</label>
     <select name="category_id" class="form-control">
         <option value="">Select</option>
-        @foreach ($categories  as $item)
+        @foreach ($categories as $item)
             {{-- <option value="{{ $Category->id }}">{{ $Category->name }}</option> --}}
             <option @selected($product->category_id == $item->id) value="{{ $item->id }}">{{ $item->trans_name }}</option>
-            @endforeach
+        @endforeach
     </select>
 </div>
 
@@ -78,39 +78,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.1/tinymce.min.js"
         integrity="sha512-eV68QXP3t5Jbsf18jfqT8xclEJSGvSK5uClUuqayUbF5IRK8e2/VSXIFHzEoBnNcvLBkHngnnd3CY7AFpUhF7w=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
         tinymce.init({
             selector: '.myeditor'
-        });
-    </script>
-
-
-
-
-    <script>
-        $('.btn-danger').on('click', function() {
-
-            let form = $(this).next('form');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
         });
     </script>
 @stop

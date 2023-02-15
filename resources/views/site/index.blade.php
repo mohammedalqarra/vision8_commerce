@@ -15,7 +15,7 @@
                             <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">{{ $item->trans_name }}
                             </h1>
                             <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn"
-                                href="shop.html">Shop Now</a>
+                                href="{{ route('site.product' ,  $item ->slug ) }}">Shop Now</a>
                         </div>
                     </div>
                 </div>

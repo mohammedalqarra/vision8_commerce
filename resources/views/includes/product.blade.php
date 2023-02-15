@@ -20,7 +20,7 @@
         </div> --}}
     </div>
     <div class="product-content">
-        <h4><a href="{{ route('site.product' ,  $product->id ) }}">{{ $product->trans_name }}</a></h4>
+        <h4><a href="{{ route('site.product' ,  $product->slug ) }}">{{ $product->trans_name }}</a></h4>
         <p class="price">${{ $product->price }}</p>
     </div>
 </div>
