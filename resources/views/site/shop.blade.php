@@ -10,10 +10,17 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="content">
-					<h1 class="page-name">Shop</h1>
+					<h1 class="page-name">
+                        {{-- @if (isset($category))
+                        {{ $category->trans_name }}
+                        @else
+                        shop
+                        @endif --}}
+                        {{ isset($category) ? $category->trans_name : 'shop'}}
+                    </h1>
 					<ol class="breadcrumb">
 						<li><a href="{{ route('site.index') }}">Home</a></li>
-						<li class="active">Shop</li>
+						<li class="active">{{ isset($category) ? $category->trans_name : 'shop'}}</li>
 					</ol>
 				</div>
 			</div>

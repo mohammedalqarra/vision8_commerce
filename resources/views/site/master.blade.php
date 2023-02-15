@@ -207,7 +207,7 @@
                                 <span class="tf-ion-ios-arrow-down"></span></a>
                             <ul class="dropdown-menu">
                                 @foreach (\App\Models\Category::all() as $item)
-                                <li><a href=" ">{{$item->trans_name}}</a></li>
+                                <li><a href="{{ route('site.category' , $item->id) }}">{{$item->trans_name}}</a></li>
                                 @endforeach
                             </ul>
                         </li><!-- / Blog -->

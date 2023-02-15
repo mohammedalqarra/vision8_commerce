@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Product;
+
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SiteController extends Controller
 {
@@ -30,19 +31,19 @@ class SiteController extends Controller
     public function shop()
     {
         $products = Product::orderBy('id' , 'Desc')->paginate(6);
-
+       //  $category = '' ;
         return view('site.shop' , compact('products'));
     }
 
-    // public function category($id)
-    // {
+    public function category($id)
+    {
 
-    //     $category = Category::FindOrFail($id);
+        $category = Category::FindOrFail($id);
 
-    //     $products = $category->product()->orderByDesc('id')->paginate(3);
+        $products = $category->product()->orderByDesc('id')->paginate(6);
 
-    //     return view('site.category' , compact('products' , 'category'));
-    // }
+        return view('site.shop' , compact('products' , 'category'));
+    }
 
     // public function contact()
     // {
