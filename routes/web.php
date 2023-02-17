@@ -55,8 +55,9 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
     Route::get('/shop' , [SiteController::class , 'shop' ])->name('site.shop');
     Route::get('/contact' , [SiteController::class , 'contact' ])->name('site.contact');
     Route::get('/category/{id}' , [SiteController::class , 'category' ])->name('site.category');
-    Route::get('/product/{id}' , [SiteController::class , 'product' ])->name('site.product');
-    Route::get('/search' , [SiteController::class , 'search' ])->name('site.search');
+    Route::get('/product/{slug}' , [SiteController::class , 'product' ])->name('site.product');
+    Route::post('/product/{slug}/review' , [SiteController::class , 'product_review' ])->name('site.product_review');
+    Route::post('/search' , [SiteController::class , 'search' ])->name('site.search');
 });
 
 
