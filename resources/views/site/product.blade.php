@@ -81,6 +81,11 @@
                     </div>
                 </div>
                 <div class="col-md-7">
+                    @if (session('msg'))
+                        <div class="alert alert-success">
+                            {{ session('msg') }}
+                        </div>
+                    @endif
                     <div class="single-product-details">
                         @php
                             $rating = $product->reviews->avg('star');
@@ -134,30 +139,36 @@
                                 <option>XL</option>
                             </select>
                         </div> --}}
-                        <div class="product-quantity">
-                            <span>Quantity:</span>
-                            <div class="product-quantity-slider">
-                                <div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button
-                                            class="btn btn-default bootstrap-touchspin-down"
-                                            type="button">-</button></span><span
-                                        class="input-group-addon bootstrap-touchspin-prefix"
-                                        style="display: none;"></span><input id="product-quantity" type="text"
-                                        value="0" name="product-quantity" class="form-control"
-                                        style="display: block;"><span class="input-group-addon bootstrap-touchspin-postfix"
-                                        style="display: none;"></span><span class="input-group-btn"><button
-                                            class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span>
+                        <form action="{{ route('site.add_to_cart') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <div class="product-quantity">
+                                <span>Quantity:</span>
+                                <div class="product-quantity-slider">
+                                    <div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button
+                                                class="btn btn-default bootstrap-touchspin-down"
+                                                type="button">-</button></span><span
+                                            class="input-group-addon bootstrap-touchspin-prefix"
+                                            style="display: none;"></span><input id="product-quantity" type="text"
+                                            value="0" name="quantity" class="form-control"
+                                            style="display: block;"><span
+                                            class="input-group-addon bootstrap-touchspin-postfix"
+                                            style="display: none;"></span><span class="input-group-btn"><button
+                                                class="btn btn-default bootstrap-touchspin-up"
+                                                type="button">+</button></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="product-category">
-                            <span>Categories:</span>
-                            <ul>
-                                <li><a
-                                        href="{{ route('site.category', $product->category_id) }}">{{ $product->category->trans_name }}</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <a href="cart.html" class="btn btn-main mt-20">Add To Cart</a>
+                            <div class="product-category">
+                                <span>Categories:</span>
+                                <ul>
+                                    <li><a
+                                            href="{{ route('site.category', $product->category_id) }}">{{ $product->category->trans_name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-main mt-20">Add To Cart</button>
+                        </form>
                     </div>
                 </div>
             </div>

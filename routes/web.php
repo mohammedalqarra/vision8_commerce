@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\SiteController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -57,7 +58,8 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
     Route::get('/category/{id}' , [SiteController::class , 'category' ])->name('site.category');
     Route::get('/product/{slug}' , [SiteController::class , 'product' ])->name('site.product');
     Route::post('/product/{slug}/review' , [SiteController::class , 'product_review' ])->name('site.product_review');
-    Route::post('/search' , [SiteController::class , 'search' ])->name('site.search');
+    Route::post('add-to-cart' , [CartController::class , 'add_to_cart' ])->name('site.add_to_cart');
+    Route::get('/search' , [SiteController::class , 'search' ])->name('site.search');
 });
 
 
