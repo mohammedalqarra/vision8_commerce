@@ -82,43 +82,47 @@
                 <div class="col-md-4 col-xs-12 col-sm-4">
                     <!-- Cart -->
                     <ul class="top-menu text-right list-inline">
+                        {{-- <li> <a href="{{ route('admin.auth.login') }}"><i class="card-header">{{ __('Login') }}</i></a></li> --}}
                         <li class="dropdown cart-nav dropdown-slide">
                             <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
                                     class="tf-ion-android-cart"></i>Cart</a>
+
                             <div class="dropdown-menu cart-dropdown">
                                 @php
                                     $total = 0 ;
                                 @endphp
-                            @foreach (Auth()->user()->carts as $cart)
-                                    <!-- Cart Item -->
-                                    <div class="media">
-                                        <a class="pull-left" href="{{ route('site.product' , $cart->product->slug) }}">
-                                            <img class="media-object"
-                                                src="{{ asset('uploads/products/' . $cart->product->image) }}"
-                                                alt="image" />
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading"><a href="{{ route('site.product' , $cart->product->slug) }}">{{ $cart->product->trans_name }}</a></h4>
-                                            <div class="cart-price">
-                                                <span>{{ $cart->quantity }} x</span>
-                                                <span>${{ $cart->price }}</span>
-                                            </div>
-                                            <h5><strong>${{ $cart->quantity * $cart->price }}</strong></h5>
+                                @auth
+                                @foreach (Auth()->user()->carts as $cart)
+                                <!-- Cart Item -->
+                                <div class="media">
+                                <a class="pull-left" href="{{ route('site.product' , $cart->product->slug) }}">
+                                        <img class="media-object"
+                                            src="{{ asset('uploads/products/' . $cart->product->image) }}"
+                                            alt="image" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="{{ route('site.product' , $cart->product->slug) }}">{{ $cart->product->trans_name }}</a></h4>
+                                        <div class="cart-price">
+                                            <span>{{ $cart->quantity }} x</span>
+                                            <span>${{ $cart->price }}</span>
                                         </div>
-                                        <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                    </div><!-- / Cart Item -->
-                                    @php
-                                        $total += $cart->quantity * $cart->price ;
-                                    @endphp
-                            @endforeach
+                                        <h5><strong>${{ $cart->quantity * $cart->price }}</strong></h5>
+                                    </div>
+                                    <a href="{{ route('site.remove_cart' , $cart->id) }}" class="remove"><i class="tf-ion-close"></i></a>
+                                </div><!-- / Cart Item -->
+                                @php
+                                    $total += $cart->quantity * $cart->price ;
+                                @endphp
+                        @endforeach
+                                @endauth
 
                                 <div class="cart-summary">
                                     <span>Total</span>
                                     <span class="total-price">${{ number_format($total , 2) }}</span>
                                 </div>
                                 <ul class="text-center cart-buttons">
-                                    <li><a href="cart.html" class="btn btn-small">View Cart</a></li>
-                                    <li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a>
+                                    <li><a href="{{ route('site.cart') }}" class="btn btn-small">View Cart</a></li>
+                                    <li><a href="{{ route('site.checkout') }}" class="btn btn-small btn-solid-border">Checkout</a>
                                     </li>
                                 </ul>
                             </div>

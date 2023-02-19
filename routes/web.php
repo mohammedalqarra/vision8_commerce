@@ -59,7 +59,13 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
     Route::get('/product/{slug}' , [SiteController::class , 'product' ])->name('site.product');
     Route::post('/product/{slug}/review' , [SiteController::class , 'product_review' ])->name('site.product_review');
     Route::post('add-to-cart' , [CartController::class , 'add_to_cart' ])->name('site.add_to_cart');
+    Route::get('/cart' , [CartController::class , 'cart' ])->name('site.cart')->middleware('auth');
+    Route::get('/checkout' , [CartController::class , 'checkout' ])->name('site.checkout')->middleware('auth');
+    Route::post('/update-cart' , [CartController::class , 'update_cart' ])->name('site.update_cart')->middleware('auth');
+    Route::get('/cart/{id}' , [CartController::class , 'remove_cart' ])->name('site.remove_cart')->middleware('auth');
     Route::get('/search' , [SiteController::class , 'search' ])->name('site.search');
+
+
 });
 
 
