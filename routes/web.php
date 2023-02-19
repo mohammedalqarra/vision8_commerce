@@ -61,6 +61,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
     Route::post('add-to-cart' , [CartController::class , 'add_to_cart' ])->name('site.add_to_cart');
     Route::get('/cart' , [CartController::class , 'cart' ])->name('site.cart')->middleware('auth');
     Route::get('/checkout' , [CartController::class , 'checkout' ])->name('site.checkout')->middleware('auth');
+    Route::get('/payment' , [CartController::class , 'payment' ])->name('site.payment')->middleware('auth');
     Route::post('/update-cart' , [CartController::class , 'update_cart' ])->name('site.update_cart')->middleware('auth');
     Route::get('/cart/{id}' , [CartController::class , 'remove_cart' ])->name('site.remove_cart')->middleware('auth');
     Route::get('/search' , [SiteController::class , 'search' ])->name('site.search');

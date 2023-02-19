@@ -28,9 +28,57 @@
             <div class="container">
                 @if (auth()->user()->carts->count() > 0)
                 <div class="row">
-
                     <div class="col-md-8">
-                        Checkout form will be here ...
+                        {{-- <span style="margin-bottom:10px">Checkout form will be here ...</span> --}}
+                        <script src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={{ $id }}"></script>
+                        <form action="{{ route('site.payment') }}" class="paymentWidgets" data-brands="VISA MASTER AMEX MADA"></form>
+
+                        {{-- <div id="smart-button-container">
+                            <div style="text-align: center;">
+                              <div id="paypal-button-container"></div>
+                            </div>
+                          </div>
+                        <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+                        <script>
+                          function initPayPalButton() {
+                            paypal.Buttons({
+                              style: {
+                                shape: 'rect',
+                                color: 'blue',
+                                layout: 'vertical',
+                                label: 'checkout',
+
+                              },
+
+                              createOrder: function(data, actions) {
+                                return actions.order.create({
+                                  purchase_units: [{"amount":{"currency_code":"USD","value":100}}]
+                                });
+                              },
+
+                              onApprove: function(data, actions) {
+                                return actions.order.capture().then(function(orderData) {
+
+                                  // Full available details
+                                  console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                                  // Show a success message within this page, e.g.
+                                  const element = document.getElementById('paypal-button-container');
+                                  element.innerHTML = '';
+                                  element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+                                  // Or go to another URL:  actions.redirect('thank_you.html');
+
+                                });
+                              },
+
+                              onError: function(err) {
+                                console.log(err);
+                              }
+                            }).render('#paypal-button-container');
+                          }
+                          initPayPalButton();
+                        </script> --}}
                     </div>
                     <div class="col-md-4">
 
