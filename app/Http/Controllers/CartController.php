@@ -129,11 +129,24 @@ class CartController extends Controller
             $amount = $responseData['amount'];
             $transaction_id = $responseData['id'];
 
-            echo 'Done';
+           // echo 'Done';
+
+           return redirect()->route('site.success');
         }else{
-            echo 'Fail';
+            //echo 'Fail';
+            return redirect()->route('site.fail');
         }
 
 
     }
+    public function success()
+    {
+        return view('site.success');
+    }
+
+    public function fail()
+    {
+        return view('site.fail');
+    }
+
 }
