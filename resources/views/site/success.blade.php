@@ -26,3 +26,11 @@
     </div>
 
 @stop
+
+@section('scripts')
+    <script>
+        setTimeout(() => {
+            window.location.href = '/' ;
+        }, 3000);
+    </script>
+@stop

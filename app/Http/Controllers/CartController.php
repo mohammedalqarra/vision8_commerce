@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 
+use Exception;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\OrderItem;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -117,36 +121,85 @@ class CartController extends Controller
             return curl_error($ch);
         }
         curl_close($ch);
-       // return $responseData;
+        // return $responseData;
 
-        $responseData = json_decode($responseData , true);
+        $responseData = json_decode($responseData, true);
 
         // code "000.100.110"
 
         $code = $responseData['result']['code'];
 
-        if($code  == '000.100.110'){
+        if ($code  == '000.100.110') {
+
             $amount = $responseData['amount'];
+
             $transaction_id = $responseData['id'];
 
-           // echo 'Done';
+            // echo 'Done';
 
-           return redirect()->route('site.success');
-        }else{
+            DB::beginTransaction();
+
+            try {
+                //create new order
+
+                $order = Order::create([
+                    'total' => $amount,
+                    'user_id' => Auth::id(),
+                ]);
+
+                // add carts to order items // أكثر من عنصر المستخدم بكون مشتري
+
+                foreach (Auth::user()->carts as $cart) {
+
+                    OrderItem::create([
+
+                        // price	quantity	user_id	product_id	order_id
+                        'price' => $cart->price,
+                        'quantity' => $cart->quantity,
+                        'user_id' => $cart->user_id,
+                        'product_id' => $cart->product_id,
+                        'order_id' => $cart->id,
+                    ]);
+
+                    //decrease the product quantity
+                    $cart->product()->decrement('quantity', $cart->quantity);
+
+                    // delete user cart
+                    $cart->delete();
+                }
+                //create new  payment amount
+
+                Payment::create([
+                    'total' => $amount,
+                    'user_id' => Auth::id(),
+                    'order_id' => $order->id,
+                    'transaction_id' => $transaction_id,
+                ]);
+
+                DB::commit();
+
+            } catch (Exception $e) {
+
+                DB::rollBack();
+
+                throw new Exception($e->getMessage());
+            }
+            return redirect()->route('site.success');
+        } else {
+
             //echo 'Fail';
             return redirect()->route('site.fail');
         }
-
-
     }
     public function success()
     {
+
         return view('site.success');
     }
 
     public function fail()
     {
+
         return view('site.fail');
     }
-
 }
