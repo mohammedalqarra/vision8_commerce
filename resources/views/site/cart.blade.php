@@ -45,9 +45,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php
-                                                    $total = 0;
-                                                @endphp
                                                 @foreach (auth()->user()->carts as $cart)
                                                     <tr class="">
                                                         <td class="">
@@ -59,12 +56,14 @@
                                                                     href="{{ route('site.product', $cart->product->slug) }}">{{ $cart->product->trans_name }}</a>
                                                             </div>
                                                         </td>
-                                                        <td class="">${{ $cart->price }}</td>
-                                                        <td class=""><input type="number" name="qyt[{{ $cart->product->id }}]"
-                                                                value="{{ $cart->quantity }}" style="width:50px"></td>
-                                                        <td class="">${{ $cart->quantity * $cart->price }}</td>
+                                                        <td class="">${{ $cart->product->price }}</td>
+                                                        <td class=""><input type="number"
+                                                                value="{{ $cart->quantity }}"
+                                                                name="qyt[{{ $cart->product_id }}]" style="width:50px"></td>
+                                                        <td class="">${{ $cart->product->price * $cart->quantity }}</td>
                                                         <td class="">
-                                                            <a class="product-remove" href="{{ route('site.remove_cart' , $cart->id) }}">Remove</a>
+                                                            <a class="product-remove"
+                                                                href="{{ route('site.remove_cart', $cart->id) }}">Remove</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

@@ -99,7 +99,7 @@
                                             <h4 class="media-heading"><a href="{{ route('site.product' , $cart->product->slug) }}">{{ $cart->product->trans_name }}
                                                     </a></h4>
                                             <p class="price"><span>{{ $cart->quantity }} x</span>
-                                                <span>${{ $cart->price }}</span>
+                                                <span>${{ $cart->product->price }}</span>
                                             </p>
                                             <span class="remove"><a
                                                     href="{{ route('site.remove_cart', $cart->id) }}">Remove</a></span>
@@ -112,7 +112,7 @@
                                     <ul class="summary-prices">
                                         <li>
                                             <span>Subtotal:</span>
-                                            <span class="price">${{ $cart->price }}</span>
+                                            <span class="price">${{ $cart->product->price }}</span>
                                         </li>
                                         <li>
                                             <span>Shipping:</span>
@@ -121,7 +121,7 @@
                                     </ul>
                                     <div class="summary-total">
                                         <span>Total</span>
-                                        <span>${{ $cart->quantity * $cart->price }}</span>
+                                        <span>${{ $cart->quantity *  $cart->product->price }}</span>
                                     </div>
                                     <div class="verified-icon">
                                         <img src="{{ asset('siteassets/images/shop/verified.png') }}">

@@ -12,15 +12,18 @@ use Illuminate\Queue\SerializesModels;
 class InvoiceMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+        public $name;
+        public $invname;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($name , $invname)
     {
         //
+        $this->name = $name;
+        $this->invname = $invname;
     }
 
     /**
@@ -40,17 +43,17 @@ class InvoiceMail extends Mailable
      *
      * @return \Illuminate\Mail\Mailables\Content
      */
-    public function content()
-    {
-        return new Content(
-            view: 'emails.invoice',
-        );
-    }
-
-    // public function build()
+    // public function content()
     // {
-    //     return $this->view('emails.invoice');
+    //     return new Content(
+    //         view: 'emails.invoice',
+    //     );
     // }
+
+    public function build()
+    {
+        return $this->view('emails.invoice')->attach((public_path('invoices/'.$this->invname)));
+    }
     /**
      * Get the attachments for the message.
      *

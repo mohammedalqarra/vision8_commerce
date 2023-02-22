@@ -104,14 +104,14 @@
                                         <h4 class="media-heading"><a href="{{ route('site.product' , $cart->product->slug) }}">{{ $cart->product->trans_name }}</a></h4>
                                         <div class="cart-price">
                                             <span>{{ $cart->quantity }} x</span>
-                                            <span>${{ $cart->price }}</span>
+                                            <span>${{ $cart->product->price }}</span>
                                         </div>
-                                        <h5><strong>${{ $cart->quantity * $cart->price }}</strong></h5>
+                                        <h5><strong>${{ $cart->quantity * $cart->product->price }}</strong></h5>
                                     </div>
                                     <a href="{{ route('site.remove_cart' , $cart->id) }}" class="remove"><i class="tf-ion-close"></i></a>
                                 </div><!-- / Cart Item -->
                                 @php
-                                    $total += $cart->quantity * $cart->price ;
+                                    $total += $cart->quantity * $cart->product->price ;
                                 @endphp
                         @endforeach
                                 @endauth

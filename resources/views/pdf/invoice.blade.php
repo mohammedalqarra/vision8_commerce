@@ -52,15 +52,15 @@
                     <tbody>
                         <tr>
                             <td class="pull-right"><strong>Customer #</strong></td>
-                            <td>21398324797234</td>
+                            <td>{{ $order->user_id }}</td>
                         </tr>
                         <tr>
                             <td class="pull-right"><strong>Invoice #</strong></td>
-                            <td>2340</td>
+                            <td>{{ $order->id }}</td>
                         </tr>
                         <tr>
                             <td class="pull-right"><strong>Date</strong></td>
-                            <td>10-08-2013</td>
+                            <td>{{ $order->created_at->format('Y-m-d') }}</td>
                         </tr>
 
                     </tbody>
@@ -78,25 +78,27 @@
                     <thead>
                         <tr>
                             <th>Product</th>
-                            <th>Description</th>
-                            <th>Month/Quantity</th>
+                            <th>price</th>
+                            <th>Quantity</th>
                             <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($order->order_items as $item)
                         <tr>
-                            <td>SEO Bronze</td>
-                            <td>www.swaransoft.com</td>
-                            <td>8 Months</td>
-                            <td>$1000</td>
+                            <td>{{ $item->product->trans_name }}</td>
+                            <td>{{ $item->price }}</td>
+                            <td>{{ $item->quantity }}</td>
+                            <td>${{ $item->quantity * $item->price  }}</td>
                         </tr>
+                        @endforeach
                         <tr>
                             <td colspan="4"></td>
                         </tr>
                         <tr>
                             <td colspan="2">&nbsp;</td>
                             <td><strong>Total</strong></td>
-                            <td><strong>$1000.00</strong></td>
+                            <td><strong>${{ $order->total }}</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,7 +111,7 @@
         </div>
         <div class="row">
             <div class="span3">
-                <strong>Phone:</strong>+91-124-111111
+                <strong>Phone:</strong>+970567686852
             </div>
             <div class="span3">
                 <strong>Email:</strong> <a href="web@webivorous.com">web@webivorous.com</a>
