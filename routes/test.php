@@ -36,3 +36,11 @@ Route::get('read-notify/{id}', function($id){
    // Auth::user()->notifications->find($id)->markAsRead();
     return redirect(Auth::user()->notifications->find($id)->data['url']);
 })->name('readd');
+
+Route::delete('delete-notify/{id}', function($id){
+
+    Auth::user()->notifications->find($id)->delete();
+    return redirect()->back();
+})->name('deleteed');
+
+
