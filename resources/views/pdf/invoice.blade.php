@@ -38,7 +38,6 @@
                 {{-- <img src="http://webivorous.com/wp-content/uploads/2020/06/brand-logo-webivorous.png"
                     class="img-rounded logo"> --}}
                     {{-- {!! QrCode::format('png')->size(150)->generate('Moahmmed Alqarra'); !!} --}}
-                    {{-- {!! QrCode::size(150)->generate('Moahmmed Alqarra'); !!} --}}
                     <img src="data:image/png;base64, {{ base64_encode(QrCode::size(150)->generate('Moahmmed Alqarra')) }}"  />
                     <address>
                     <strong>Webivorous Web services Pvt. Ltd.</strong><br>
@@ -88,8 +87,8 @@
                         <tr>
                             <td>{{ $item->product->trans_name }}</td>
                             <td>{{ $item->price }}</td>
-                            <td>{{ $item->quantity }}</td>
-                            <td>${{ $item->quantity * $item->price  }}</td>
+                            <td>{{ $item->product->quantity }}</td>
+                            <td>${{ $item->product->quantity * $item->price  }}</td>
                         </tr>
                         @endforeach
                         <tr>

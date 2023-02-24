@@ -43,7 +43,7 @@
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{{ asset('siteassets/css/style.css') }}">
-    @yield('style')
+    @yield('styles')
 </head>
 
 <body id="body">
@@ -223,7 +223,7 @@
 
     @yield('content')
 
-    <footer class="footer section text-center">
+    <footer class="footer section text-center mb-0">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">

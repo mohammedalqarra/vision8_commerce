@@ -73,7 +73,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
     Route::get('/search', [SiteController::class, 'search'])->name('site.search');
 });
 
-
+include 'test.php';
 // This just for Test only
 
 //Route::get('send-notification', function () {

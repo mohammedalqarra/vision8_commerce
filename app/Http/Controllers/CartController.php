@@ -39,7 +39,7 @@ class CartController extends Controller
         ], [
 
             'price' => $product->sale_price ? $product->sale_price : $product->price,
-            'quantity' => DB::raw('quantity  + ' . $request->quantity),
+            'quantity' => DB::raw('   + ' . $request->quantity),
         ]);
 
         return redirect()->back()->with('msg', 'product added to cart successfully');
