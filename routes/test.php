@@ -44,3 +44,11 @@ Route::delete('delete-notify/{id}', function($id){
 })->name('deleteed');
 
 
+
+Route::get('read-all-notify', function(){
+
+    Auth::user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+
+})->name('read_all_notification');
+

@@ -14,7 +14,10 @@
 <br>
     <div class="container">
 
-
+        @if (auth()->user()->Unreadnotifications->count() > 1)
+        <h3>({{ auth()->user()->Unreadnotifications->count() }})Unred Notifications</h3>
+        <a href="{{ route('read_all_notification') }}">Read All</a>
+        @endif
             <div class="list-group">
                 @foreach (auth()->user()->notifications as $notification)
                 <a href="{{ route('readd' , $notification->id ) }}" class="list-group-item {{ $notification->read_at ? 'active' : '' }}">
