@@ -29,6 +29,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('siteassets/images/favicon.png') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!-- Themefisher Icon font -->
     <link rel="stylesheet" href="{{ asset('siteassets/plugins/themefisher-font/style.css') }}">
@@ -84,6 +85,7 @@
                     <ul class="top-menu text-right list-inline">
                         {{-- <li> <a href="{{ route('admin.auth.login') }}"><i class="card-header">{{ __('Login') }}</i></a></li> --}}
                         <li class="dropdown cart-nav dropdown-slide">
+                            
                             <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
                                     class="tf-ion-android-cart"></i>Cart</a>
 

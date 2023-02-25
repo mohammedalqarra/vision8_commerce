@@ -33,8 +33,8 @@ Route::get('read-notify', function(){
 Route::get('read-notify/{id}', function($id){
 
     Auth::user()->notifications->find($id)->update(['read_at' => now()]);
-   // Auth::user()->notifications->find($id)->markAsRead();
-    return redirect(Auth::user()->notifications->find($id)->data['url']);
+    Auth::user()->notifications->find($id)->markAsRead();
+   // return redirect(Auth::user()->notifications->find($id)->data['url']);
 })->name('readd');
 
 Route::delete('delete-notify/{id}', function($id){
@@ -50,5 +50,5 @@ Route::get('read-all-notify', function(){
     Auth::user()->unreadNotifications->markAsRead();
     return redirect()->back();
 
-})->name('read_all_notification');
+})->name('read_all_notification')->middleware('auth');
 

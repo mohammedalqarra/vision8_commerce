@@ -32,7 +32,7 @@ class NewOrder extends Notification
      */
     public function via($notifiable)
     {
-        $notification_channel = 'database';
+        $notification_channel = 'database,broadcast';
         $channel = explode(',' , $notification_channel);
         return $channel;
     }
@@ -51,13 +51,20 @@ class NewOrder extends Notification
                     ->line('Thank you for using our application!');
     }
 
-    public function toDatabase($notifiable)
-    {
-        return [
-            'data' => 'Thare is new Order ('.$this->order->user->name.') With Number (#'.$this->order->id.')',
-            'url' => URL('/'),
-        ];
-    }
+    // public function toDatabase($notifiable)
+    // {
+    //     return [
+    //         'data' => 'Thare is new Order ('.$this->order->user->name.') With Number (#'.$this->order->id.')',
+    //         'url' => URL('/'),
+    //     ];
+    // }
+    // public function toBroadcast($notifiable)
+    // {
+    //     return [
+    //         'data' => 'Thare is new Order ('.$this->order->user->name.') With Number (#'.$this->order->id.')',
+    //         'url' => URL('/'),
+    //     ];
+    // }
     /**
      * Get the array representation of the notification.
      *
@@ -67,7 +74,8 @@ class NewOrder extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'data' => 'Thare is new Order ('.$this->order->user->name.') With Number (#'.$this->order->id.')',
+            'url' => URL('/'),
         ];
     }
 }
