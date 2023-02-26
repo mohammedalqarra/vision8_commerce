@@ -47,8 +47,9 @@
 @section('scripts')
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 
-    <script>
+    {{-- <script>
         $.ajax({
             type: 'get',
             url: 'https://jsonplaceholder.typicode.com/posts',
@@ -72,6 +73,27 @@
                 })
             }
         });
-    </script>
+    </script> --}}
 
+    <script>
+        // Make a request for a user with a given ID
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+            .then(function(response) {
+                response.data.forEach(post => {
+                    let item =
+                        `<h1>${post.title}</h1>
+                        <p>${post.body}</p>
+                        <hr>`
+                    $('.block').append(item);
+                });
+                //console.log(response);
+            })
+            // .catch(function(error) {
+            //     // handle error
+            //     console.log(error);
+            // })
+        // .finally(function() {
+        //     // always executed
+        // });
+    </script>
 @stop
