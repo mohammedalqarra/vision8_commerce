@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\APIController;
 use App\Models\Order;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -72,6 +73,9 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
     Route::get('/cart/{id}', [CartController::class, 'remove_cart'])->name('site.remove_cart')->middleware('auth');
     Route::get('/search', [SiteController::class, 'search'])->name('site.search');
 });
+
+
+Route::get('/posts-api', [APIController::class, 'posts']);
 
 include 'test.php';
 // This just for Test only
