@@ -58,9 +58,43 @@
                         <a href="tel:0129- 12323-123123">
                             <i class="tf-ion-ios-telephone"></i>
                             <span>0129- 12323-123123</span>
+                            <br>
+                            <br>
+                            @auth
+                            <div 
+                            style="width:600px; height:118px; margin-top: 20px; border:2px solid #0000001f;border-radius:7px; padding:15px">
+                            <p style="font-size:15px; color:#000;">{{ now()->format('l , F d') }}th
+                                <span style="color:#000; font-size:20px">Welcome {!! Str::words(auth()->user()->name, 1, ' ...') !!}</span>
+                            </p>
+
+                            @php
+                            // I'm India so my timezone is Asia/Calcutta
+                            date_default_timezone_set('Asia/Calcutta');
+
+                            // 24-hour format of an hour without leading zeros (0 through 23)
+                            $Hour = date('G');
+
+                            if ($Hour >= 5 && $Hour <= 12) {
+                                echo '<span  style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good Morning</span>';
+                            } elseif ($Hour >= 12 && $Hour <= 17) {
+                                echo '<span  style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good Afternoon</span>';
+                            } elseif ($Hour >= 17 || $Hour <= 19) {
+                                echo '<span  style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good Evening</span>';
+                            }elseif($Hour >= 19) {
+                                echo '<span  style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good night</span>';
+                            }
+                            @endphp
+
+                        </div>
+                        @endauth
+                            
+                            <img width="40"
+                                src="http://openweathermap.org/img/wn/{{ $weather['weather'][0]['icon'] }}@2x.png">
+                                :
+                                {{ $weather['main']['temp'] }}°C
                         </a>
                         <br>
-                        <img width="40" src="http://openweathermap.org/img/wn/{{ $weather['weather'][0]['icon'] }}@2x.png" > : {{ $weather['main']['temp'] }}°C
+
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12 col-sm-4">
@@ -93,40 +127,44 @@
 
                             <div class="dropdown-menu cart-dropdown">
                                 @php
-                                    $total = 0 ;
+                                    $total = 0;
                                 @endphp
                                 @auth
-                                @foreach (Auth()->user()->carts as $cart)
-                                <!-- Cart Item -->
-                                <div class="media">
-                                <a class="pull-left" href="{{ route('site.product' , $cart->product->slug) }}">
-                                        <img class="media-object"
-                                            src="{{ asset('uploads/products/' . $cart->product->image) }}"
-                                            alt="image" />
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="{{ route('site.product' , $cart->product->slug) }}">{{ $cart->product->trans_name }}</a></h4>
-                                        <div class="cart-price">
-                                            <span>{{ $cart->quantity }} x</span>
-                                            <span>${{ $cart->product->price }}</span>
-                                        </div>
-                                        <h5><strong>${{ $cart->quantity * $cart->product->price }}</strong></h5>
-                                    </div>
-                                    <a href="{{ route('site.remove_cart' , $cart->id) }}" class="remove"><i class="tf-ion-close"></i></a>
-                                </div><!-- / Cart Item -->
-                                @php
-                                    $total += $cart->quantity * $cart->product->price ;
-                                @endphp
-                        @endforeach
+                                    @foreach (Auth()->user()->carts as $cart)
+                                        <!-- Cart Item -->
+                                        <div class="media">
+                                            <a class="pull-left" href="{{ route('site.product', $cart->product->slug) }}">
+                                                <img class="media-object"
+                                                    src="{{ asset('uploads/products/' . $cart->product->image) }}"
+                                                    alt="image" />
+                                            </a>
+                                            <div class="media-body">
+                                                <h4 class="media-heading"><a
+                                                        href="{{ route('site.product', $cart->product->slug) }}">{{ $cart->product->trans_name }}</a>
+                                                </h4>
+                                                <div class="cart-price">
+                                                    <span>{{ $cart->quantity }} x</span>
+                                                    <span>${{ $cart->product->price }}</span>
+                                                </div>
+                                                <h5><strong>${{ $cart->quantity * $cart->product->price }}</strong></h5>
+                                            </div>
+                                            <a href="{{ route('site.remove_cart', $cart->id) }}" class="remove"><i
+                                                    class="tf-ion-close"></i></a>
+                                        </div><!-- / Cart Item -->
+                                        @php
+                                            $total += $cart->quantity * $cart->product->price;
+                                        @endphp
+                                    @endforeach
                                 @endauth
 
                                 <div class="cart-summary">
                                     <span>Total</span>
-                                    <span class="total-price">${{ number_format($total , 2) }}</span>
+                                    <span class="total-price">${{ number_format($total, 2) }}</span>
                                 </div>
                                 <ul class="text-center cart-buttons">
                                     <li><a href="{{ route('site.cart') }}" class="btn btn-small">View Cart</a></li>
-                                    <li><a href="{{ route('site.checkout') }}" class="btn btn-small btn-solid-border">Checkout</a>
+                                    <li><a href="{{ route('site.checkout') }}"
+                                            class="btn btn-small btn-solid-border">Checkout</a>
                                     </li>
                                 </ul>
                             </div>
@@ -135,12 +173,13 @@
 
                         <!-- Search -->
                         <li class="dropdown search dropdown-slide">
-                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown"
-                                data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i> Search</a>
+                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+                                    class="tf-ion-ios-search-strong"></i> Search</a>
                             <ul class="dropdown-menu search-dropdown">
                                 <li>
-                                    <form action="{{ route('site.search') }}" method="GET"><input type="search" name="search" class="form-control"
-                                        value="{{ request()->search }}"     placeholder="Search..."></form>
+                                    <form action="{{ route('site.search') }}" method="GET"><input type="search"
+                                            name="search" class="form-control" value="{{ request()->search }}"
+                                            placeholder="Search..."></form>
                                 </li>
                             </ul>
                         </li><!-- / Search -->
@@ -202,11 +241,13 @@
                         <!-- Categories -->
                         <li class="dropdown dropdown-slide">
                             <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-                                data-delay="350" role="button" aria-haspopup="true" aria-expanded="false">Categories
+                                data-delay="350" role="button" aria-haspopup="true"
+                                aria-expanded="false">Categories
                                 <span class="tf-ion-ios-arrow-down"></span></a>
                             <ul class="dropdown-menu">
                                 @foreach (\App\Models\Category::all() as $item)
-                                <li><a href="{{ route('site.category' , $item->id) }}">{{$item->trans_name}}</a></li>
+                                    <li><a href="{{ route('site.category', $item->id) }}">{{ $item->trans_name }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li><!-- / Blog -->
