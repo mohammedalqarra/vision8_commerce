@@ -59,6 +59,8 @@
                             <i class="tf-ion-ios-telephone"></i>
                             <span>0129- 12323-123123</span>
                         </a>
+                        <br>
+                        <img width="40" src="http://openweathermap.org/img/wn/{{ $weather['weather'][0]['icon'] }}@2x.png" > : {{ $weather['main']['temp'] }}°C
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12 col-sm-4">
@@ -85,7 +87,7 @@
                     <ul class="top-menu text-right list-inline">
                         {{-- <li> <a href="{{ route('admin.auth.login') }}"><i class="card-header">{{ __('Login') }}</i></a></li> --}}
                         <li class="dropdown cart-nav dropdown-slide">
-                            
+
                             <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
                                     class="tf-ion-android-cart"></i>Cart</a>
 
