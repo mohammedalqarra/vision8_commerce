@@ -60,41 +60,40 @@
                             <span>0129- 12323-123123</span>
                             <br>
                             <br>
-                            @auth
-                            <div 
-                            style="width:600px; height:118px; margin-top: 20px; border:2px solid #0000001f;border-radius:7px; padding:15px">
-                            <p style="font-size:15px; color:#000;">{{ now()->format('l , F d') }}th
-                                <span style="color:#000; font-size:20px">Welcome {!! Str::words(auth()->user()->name, 1, ' ...') !!}</span>
-                            </p>
-
-                            @php
-                            // I'm India so my timezone is Asia/Calcutta
-                            date_default_timezone_set('Asia/Calcutta');
-
-                            // 24-hour format of an hour without leading zeros (0 through 23)
-                            $Hour = date('G');
-
-                            if ($Hour >= 5 && $Hour <= 12) {
-                                echo '<span  style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good Morning</span>';
-                            } elseif ($Hour >= 12 && $Hour <= 17) {
-                                echo '<span  style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good Afternoon</span>';
-                            } elseif ($Hour >= 17 || $Hour <= 19) {
-                                echo '<span  style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good Evening</span>';
-                            }elseif($Hour >= 19) {
-                                echo '<span  style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good night</span>';
-                            }
-                            @endphp
-
-                        </div>
-                        @endauth
-                            
-                            <img width="40"
-                                src="http://openweathermap.org/img/wn/{{ $weather['weather'][0]['icon'] }}@2x.png">
-                                :
-                                {{ $weather['main']['temp'] }}°C
                         </a>
                         <br>
+                        @auth
+                            <div
+                                style="width:750px; height:118px;border:2px solid #0000001f;border-radius:7px; padding:15px">
+                                <p style="font-size:15px; color:#000;">{{ now()->format('l , F d') }}th
+                                    <span style="color:#000; font-size:20px">Welcome {!! Str::words(auth()->user()->name, 1, ' ...') !!}</span>
+                                </p>
 
+                                @php
+                                    
+                                    /* This sets the $time variable to the current hour in the 24 hour clock format */
+                                    $time = date('H');
+                                    /* Set the $timezone variable to become the current timezone */
+                                    $timezone = date('e');
+                                    /* If the time is less than 1200 hours, show good morning */
+                                    if ($time < '12') {
+                                        echo '<span style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good morning</span>';
+                                    } /* If the time is grater than or equal to 1200 hours, but less than 1700 hours, so good afternoon */ elseif ($time >= '12' && $time < '17') {
+                                        echo '<span style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good afternoon</span>';
+                                    } /* Should the time be between or equal to 1700 and 1900 hours, show good evening */ elseif ($time >= '17' && $time < '19') {
+                                        echo '<span style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good evening</span>';
+                                    } /* Finally, show good night if the time is greater than or equal to 1900 hours */ elseif ($time >= '19') {
+                                        echo '<span style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good night</span>';
+                                    }
+                                @endphp
+
+                            </div>
+                        @endauth
+
+                        <img width="40"
+                            src="http://openweathermap.org/img/wn/{{ $weather['weather'][0]['icon'] }}@2x.png">
+                        :
+                        {{ $weather['main']['temp'] }}°C
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12 col-sm-4">
