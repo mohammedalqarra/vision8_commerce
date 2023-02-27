@@ -70,7 +70,6 @@
                                 </p>
 
                                 @php
-                                    
                                     /* This sets the $time variable to the current hour in the 24 hour clock format */
                                     $time = date('H');
                                     /* Set the $timezone variable to become the current timezone */
@@ -78,11 +77,14 @@
                                     /* If the time is less than 1200 hours, show good morning */
                                     if ($time < '12') {
                                         echo '<span style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good morning</span>';
-                                    } /* If the time is grater than or equal to 1200 hours, but less than 1700 hours, so good afternoon */ elseif ($time >= '12' && $time < '17') {
+                                    } /* If the time is grater than or equal to 1200 hours, but less than 1700 hours, so good afternoon */ 
+                                    elseif ($time >= '12' && $time < '17') {
                                         echo '<span style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good afternoon</span>';
-                                    } /* Should the time be between or equal to 1700 and 1900 hours, show good evening */ elseif ($time >= '17' && $time < '19') {
+                                    } /* Should the time be between or equal to 1700 and 1900 hours, show good evening */ 
+                                    elseif ($time >= '17' && $time < '19') {
                                         echo '<span style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good evening</span>';
-                                    } /* Finally, show good night if the time is greater than or equal to 1900 hours */ elseif ($time >= '19') {
+                                    } /* Finally, show good night if the time is greater than or equal to 1900 hours */
+                                    elseif ($time >= '19') {
                                         echo '<span style="font-size:40px;color:#000;font-family: "Bitter", serif;">Good night</span>';
                                     }
                                 @endphp
