@@ -309,7 +309,7 @@
                             <a href="contact.html">PRIVACY POLICY</a>
                         </li>
                     </ul>
-                    <p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a
+                    <p class="copyright-text">Copyright &copy;{{ date('Y') }}, Designed &amp; Developed by <a
                             href="https://themefisher.com/">Themefisher</a></p>
                 </div>
             </div>
