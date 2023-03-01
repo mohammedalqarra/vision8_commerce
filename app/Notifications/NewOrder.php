@@ -34,7 +34,8 @@ class NewOrder extends Notification
      */
     public function via($notifiable)
     {
-        $notification_channel = 'database,broadcast,vonage';
+       // $notification_channel = 'database,broadcast,vonage';
+        $notification_channel = 'database,broadcast';
         $channel = explode(',' , $notification_channel);
         return $channel;
     }
@@ -53,12 +54,12 @@ class NewOrder extends Notification
                     ->line('Thank you for using our application!');
     }
 
-    public function toVonage($notifiable)
-    {
-        return (new VonageMessage)
-                    ->content('Your unicode message');
+    // public function toVonage($notifiable)
+    // {
+    //     return (new VonageMessage)
+    //                 ->content('Your unicode message');
 
-    }
+    // }
 
     // public function toDatabase($notifiable)
     // {
