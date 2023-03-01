@@ -108,6 +108,7 @@ class ProductController extends Controller
     {
         //
 
+        return Product::find($id);
     }
 
     /**
@@ -120,6 +121,87 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $product = Product::findOrFail($id);
+        $data = $request->all();
+        // Uploads the files
+        $img_name = $product->image;
+        if($request->hasFile('image')) {
+            $img_name = rand().time().$request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('uploads/products'), $img_name);
+            $data['image'] = $img_name;
+        }
+
+        if($request->has('name_en')) {
+            $name = json_encode([
+                'en' => $request->name_en,
+                'ar' => $product->name_ar,
+            ], JSON_UNESCAPED_UNICODE);
+        }
+
+        if($request->has('name_ar')) {
+            $name = json_encode([
+                'en' => $product->name_en,
+                'ar' => $request->name_ar,
+            ], JSON_UNESCAPED_UNICODE);
+        }
+
+        if($request->has('content_en')) {
+            $content = json_encode([
+                'en' => $request->content_en,
+                'ar' => $product->content_ar,
+            ], JSON_UNESCAPED_UNICODE);
+        }
+
+        if($request->has('content_ar')) {
+            $content = json_encode([
+                'en' => $product->content_en,
+                'ar' => $request->content_ar,
+            ], JSON_UNESCAPED_UNICODE);
+        }
+
+        // Store Data To Data base
+
+        if($request->has('name_en') || $request->has('name_ar')) {
+            $data['name'] = $name;
+            unset($data['name_en']);
+            unset($data['name_ar']);
+        }
+
+        if($request->has('content_en') || $request->has('content_ar')) {
+            $data['content'] = $content;
+            unset($data['content_en']);
+            unset($data['content_ar']);
+        }
+
+        // return $data;
+        // exit;
+
+
+        return $product->update($data);
+
+
+        // $product->update([
+        //     'name' => $name,
+        //     'image' => $img_name,
+        //     'content' => $content,
+        //     'price' => $request->price,
+        //     'sale_price' => $request->sale_price,
+        //     'quantity' => $request->quantity,
+        //     'category_id' => $request->category_id,
+        // ]);
+
+
+        // uploads Album to images table if exists
+        // if ($request->has('album')) {
+        //     foreach ($request->album as $item) {
+        //         $img_name = rand() . $item->getClientOriginalName();
+        //         $item->move(public_path('uploads/products'), $img_name);
+        //         Image::create([
+        //             'path' => $img_name,
+        //             'product_id' => $product->id,
+        //         ]);
+        //     }
+        // }
     }
 
     /**
