@@ -25,6 +25,5 @@ Route::prefix('v1')->group(function (){
     // Route::get('products' , function(){
     //     return 'ddd';
     // });
-    
     Route::apiResource('products' , ProductController::class);
 });
