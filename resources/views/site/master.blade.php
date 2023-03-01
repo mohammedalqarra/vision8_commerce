@@ -64,7 +64,7 @@
                         <br>
                         @auth
                             <div
-                                style="width:750px; height:118px;border:2px solid #0000001f;border-radius:7px; padding:15px">
+                                style="width:750px; height:118px;border:2px solid #0000001f;border-radius:25px; padding:15px">
                                 <p style="font-size:15px; color:#000;">{{ now()->format('l , F d') }}th
                                     <span style="color:#000; font-size:20px">Welcome {!! Str::words(auth()->user()->name, 1, ' ...') !!}</span>
                                 </p>
