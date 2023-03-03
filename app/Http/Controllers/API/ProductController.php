@@ -127,8 +127,22 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+        $product = Product::find($id);
 
-        return Product::find($id);
+        if($product){
+            return response()->json([
+                'message' => 'Found Data',
+                'status' => 'Success',
+                'data' => $product,
+            ], 200); // status
+        }else {
+            return response()->json([
+                'message' => 'No Found Data',
+                'status' => 'Success',
+                'data' => [],
+            ], 404); // status
+        }
+
     }
 
     /**
