@@ -18,7 +18,27 @@ class ProductController extends Controller
     public function index()
     {
         //
-        return Product::all();
+        $products = Product::all();
+
+        if ($products->count() > 0) {
+            return response()->json([
+                'message' => 'All Products',
+                'status' => 'Success',
+                'data' => $products,
+            ], 200); // status
+        } else {
+            return response()->json([
+                'message' => 'No Data Found',
+                'status' => 'Success',
+                'data' => [],
+            ], 200); // status
+        }
+        // return [
+        //     'data' => $products,
+        //     'message' => 'All Products',
+        //     'status' => 'Success',
+        // ];
+        // return Product::all();
     }
 
     /**
@@ -125,34 +145,34 @@ class ProductController extends Controller
         $data = $request->all();
         // Uploads the files
         $img_name = $product->image;
-        if($request->hasFile('image')) {
-            $img_name = rand().time().$request->file('image')->getClientOriginalName();
+        if ($request->hasFile('image')) {
+            $img_name = rand() . time() . $request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('uploads/products'), $img_name);
             $data['image'] = $img_name;
         }
 
-        if($request->has('name_en')) {
+        if ($request->has('name_en')) {
             $name = json_encode([
                 'en' => $request->name_en,
                 'ar' => $product->name_ar,
             ], JSON_UNESCAPED_UNICODE);
         }
 
-        if($request->has('name_ar')) {
+        if ($request->has('name_ar')) {
             $name = json_encode([
                 'en' => $product->name_en,
                 'ar' => $request->name_ar,
             ], JSON_UNESCAPED_UNICODE);
         }
 
-        if($request->has('content_en')) {
+        if ($request->has('content_en')) {
             $content = json_encode([
                 'en' => $request->content_en,
                 'ar' => $product->content_ar,
             ], JSON_UNESCAPED_UNICODE);
         }
 
-        if($request->has('content_ar')) {
+        if ($request->has('content_ar')) {
             $content = json_encode([
                 'en' => $product->content_en,
                 'ar' => $request->content_ar,
@@ -161,13 +181,13 @@ class ProductController extends Controller
 
         // Store Data To Data base
 
-        if($request->has('name_en') || $request->has('name_ar')) {
+        if ($request->has('name_en') || $request->has('name_ar')) {
             $data['name'] = $name;
             unset($data['name_en']);
             unset($data['name_ar']);
         }
 
-        if($request->has('content_en') || $request->has('content_ar')) {
+        if ($request->has('content_en') || $request->has('content_ar')) {
             $data['content'] = $content;
             unset($data['content_en']);
             unset($data['content_ar']);
@@ -213,6 +233,6 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //return 'Delete ' . $id;
-        return Product::destroy($id); 
+        return Product::destroy($id);
     }
 }
