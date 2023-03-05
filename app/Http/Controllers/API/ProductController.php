@@ -124,7 +124,21 @@ class ProductController extends Controller
     {
         //
 
-        
+        $products = Product::find($id);
+
+        if($products){
+            return response()->json([
+                'message' => 'Found Data',
+                'status' => 'Success',
+                'data' => $products,
+            ] , 200);
+        }else {
+            return response()->json([
+                'message' => 'No Fond Data',
+                'status' => 'Success',
+                'data' => [],
+            ] , 404); // status
+        }
     }
 
     /**
