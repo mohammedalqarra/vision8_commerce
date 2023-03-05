@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
@@ -16,6 +16,22 @@ class ProductController extends Controller
     public function index()
     {
         //
+
+        $products = Product::all();
+
+        if($products->count() > 0){
+            return response()->json([
+                'message' => 'All Products',
+                'status' => 'Success',
+                'data' => $products,
+            ] , 200 );
+        }else {
+            return response()->json([
+                'message' => 'No Data Found',
+                'status' => 'Success',
+                'data' => [],
+            ] , 200 );
+        }
 
         return Product::all();
     }
