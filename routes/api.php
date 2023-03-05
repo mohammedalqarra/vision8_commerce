@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,10 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login' , [AuthController::class , 'login']);
 Route::post('/register' , [AuthController::class , 'register']);
-
-Route::prefix('v1')->middleware('auth:sanctum')->group(function (){ // كل اروابط تكون محمية من ال token
+//middleware('auth:sanctum')->
+Route::prefix('v1')->group(function (){ // كل اروابط تكون محمية من ال token
     // Route::get('products' , function(){
     //     return 'ddd';
     // });
     Route::apiResource('products' , ProductController::class);
+    Route::apiResource('categories' , CategoryController::class);
 });

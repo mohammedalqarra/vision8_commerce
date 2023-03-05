@@ -6,6 +6,9 @@
     <div class="hero-slider">
 
         @foreach ($products_slider as $item)
+        @if ($item->quantity > 0)
+
+        
             <div class="slider-item th-fullpage hero-area"
                 style="background-image: url({{ asset('uploads/products/' . $item->image) }});">
                 <div class="container">
@@ -20,6 +23,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         @endforeach
 
     </div>

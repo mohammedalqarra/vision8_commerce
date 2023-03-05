@@ -34,27 +34,30 @@
         </thead>
         <tbody>
             @foreach ($products as $product)
-                <tr>
-                    <td>{{ $product->id }}</td>
-                    <td>{{ $product->trans_name }}</td>
-                    <td><img width="80" src="{{ asset('uploads/products/' . $product->image) }}"></td>
-                    <td>{{ $product->price }}</td>
-                    <td>{{ $product->sale_price }}</td>
-                    <td>{{ $product->quantity }}</td>
-                    <td>{{ $product->category->trans_name }}</td>
-                    <th>{{ $product->created_at ? $product->created_at->diffForHumans() : '' }}</th>
-                    <td>
-                        <a class="btn btn-sm btn-primary" href="{{ route('admin.products.edit', $product->id) }}"><i
-                                class="fa fa-edit"></i></a>
-                        {{-- confirm delte --}}
-                        <button class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>
-                        <form class="d-inline" action="{{ route('admin.products.destroy', $product->id) }}"
-                            method="POST">
-                            @csrf
-                            @method('delete')
-                        </form>
-                    </td>
-                </tr>
+            @if ($product->quantity > 0)
+            <tr>
+                <td>{{ $product->id }}</td>
+                <td>{{ $product->trans_name }}</td>
+                <td><img width="80" src="{{ asset('uploads/products/' . $product->image) }}"></td>
+                <td>{{ $product->price }}</td>
+                <td>{{ $product->sale_price }}</td>
+                <td>{{ $product->quantity }}</td>
+                <td>{{ $product->category->trans_name }}</td>
+                <th>{{ $product->created_at ? $product->created_at->diffForHumans() : '' }}</th>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="{{ route('admin.products.edit', $product->id) }}"><i
+                            class="fa fa-edit"></i></a>
+                    {{-- confirm delte --}}
+                    <button class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>
+                    <form class="d-inline" action="{{ route('admin.products.destroy', $product->id) }}"
+                        method="POST">
+                        @csrf
+                        @method('delete')
+                    </form>
+                </td>
+            </tr>
+            @endif
+
             @endforeach
         </tbody>
     </table>

@@ -32,9 +32,14 @@
 
         <div class="row">
             @foreach ($products as $product)
+            @if ($product->quantity > 0)
+
+
             <div class="col-md-4">
                 @include('site.includes.product')
             </div>
+
+            @endif
             @endforeach
 
         </div>
