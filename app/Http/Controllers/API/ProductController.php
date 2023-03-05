@@ -203,7 +203,7 @@ class ProductController extends Controller
         if($request->has('content_en') || $request->has('content_ar')){
             $data['content'] = $content;
             unset($data['content_en']);
-            unset($data['content_ar']); // data اعمل متغير أسمه name وبنفس الوقت أحذف أي وحدة 
+            unset($data['content_ar']); // data اعمل متغير أسمه name وبنفس الوقت أحذف أي وحدة
         }
 
         return $product->update($data); //  1 راح يشتغل
@@ -218,5 +218,6 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+        return Product::destroy($id);
     }
 }
