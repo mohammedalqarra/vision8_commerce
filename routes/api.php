@@ -31,3 +31,4 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function (){ // كل ار
     Route::apiResource('products' , ProductController::class);
     Route::apiResource('categories' , CategoryController::class);
 });
+
